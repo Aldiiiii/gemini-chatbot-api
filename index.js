@@ -3,12 +3,20 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import multer from "multer";
-import fs from "fs";
+// import fs from "fs";
+import fs from "node:fs";
+import path from "node:path";
+import os from "node:os";
 
 dotenv.config();
 
 // limit upload 5mb
-const upload = multer({ dest: "uploads/", limits: { fileSize: 5 * 1024 * 1024 } });
+// const upload = multer({ dest: "uploads/", limits: { fileSize: 5 * 1024 * 1024 } });
+// Vercel has a read-only filesystem, except for the /tmp directory.
+// We will store uploaded files there.
+const uploadDir = path.join(os.tmpdir(), 'uploads');
+if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);
+const upload = multer({ dest: uploadDir, limits: { fileSize: 5 * 1024 * 1024 } });
 
 const app = express();
 const port = process.env.PORT || 3000;
