@@ -52,6 +52,7 @@ h1 {
 form {
   display: flex;
   gap: 10px;
+  align-items: center; /* Align items vertically */
 }
 
 input[type="text"] {
@@ -60,6 +61,93 @@ input[type="text"] {
   border-radius: 20px;
   border: 1px solid #ccc;
   font-size: 16px;
+}
+
+/* Visually hide the default file input but keep it accessible */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.file-attachment-group {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* Gap between + button and file name */
+}
+
+.file-input-area {
+  position: relative; /* For dropdown positioning */
+}
+
+.icon-button {
+  background: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 50%; /* Make it round */
+  width: 38px; /* Adjust size */
+  height: 38px; /* Adjust size */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: background-color 0.2s;
+}
+
+.icon-button:hover {
+  background-color: #e0e0e0;
+}
+
+.icon-button svg {
+  width: 20px; /* Adjust icon size */
+  height: 20px;
+}
+
+.file-type-dropdown {
+  position: absolute;
+  bottom: 100%; /* Position above the + button */
+  left: 0;
+  margin-bottom: 5px; /* Space between button and dropdown */
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 5px;
+  display: none; /* Hidden by default */
+  flex-direction: row; /* Arrange icons horizontally */
+  gap: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  z-index: 10;
+}
+
+.file-type-dropdown.active {
+  display: flex;
+}
+
+.file-type-option {
+  display: flex;
+  flex-direction: column; /* Icon above text */
+  align-items: center;
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 0.75em;
+  min-width: 50px; /* Ensure options have some width */
+  text-align: center;
+}
+
+.file-type-option:hover {
+  background-color: #f0f0f0;
+}
+
+.file-type-option svg {
+  margin-bottom: 4px;
 }
 
 button {
@@ -74,4 +162,14 @@ button {
 
 button:hover {
   background-color: #0b5ed7;
+}
+
+.selected-file-name {
+  font-size: 0.8em;
+  color: #555;
+  /* margin-left: 5px; */ /* Adjusted by gap in .file-attachment-group */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100px; /* Adjust as needed */
 }

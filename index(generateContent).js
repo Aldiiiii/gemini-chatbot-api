@@ -27,11 +27,9 @@ const generationConfig = {
   topK: 40,           // Menaikkan topK juga membantu variasi, tapi topP biasanya lebih berpengaruh untuk kreativitas
 };
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-// const systemInstruction = "Kamu adalah Gemini, sebuah AI chatbot yang sangat interaktif, ramah, dan penuh imajinasi. Tujuanmu adalah membuat percakapan menjadi hidup dan menyenangkan. Gunakan bahasa sehari-hari yang santai dan mudah dimengerti. Jangan ragu untuk menggunakan emoji jika sesuai. Cobalah untuk mengajukan pertanyaan klarifikasi atau pertanyaan lanjutan untuk mendorong pengguna berinteraksi lebih jauh. Buat responsmu terasa seperti sedang mengobrol dengan teman yang antusias.";
-const systemInstruction = "Kamu adalah Golden, sebuah AI chatbot yang sangat interaktif, ramah, dan penuh imajinasi. Tujuanmu adalah membuat percakapan menjadi hidup dan menyenangkan. Gunakan bahasa sehari-hari yang santai dan mudah dimengerti. Buat responsmu terasa seperti sedang mengobrol dengan teman yang antusias.";
+const systemInstruction = "Kamu adalah Gemini, sebuah AI chatbot yang sangat interaktif, ramah, dan penuh imajinasi. Tujuanmu adalah membuat percakapan menjadi hidup dan menyenangkan. Gunakan bahasa sehari-hari yang santai dan mudah dimengerti. Jangan ragu untuk menggunakan emoji jika sesuai. Cobalah untuk mengajukan pertanyaan klarifikasi atau pertanyaan lanjutan untuk mendorong pengguna berinteraksi lebih jauh. Buat responsmu terasa seperti sedang mengobrol dengan teman yang antusias.";
 
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash", generationConfig, systemInstruction });
-const chat = model.startChat(); // Inisialisasi sesi chat di sini
 
 // setting for generated information from multer
 const fileGeneratePart = (filePath, mimeType) => ({
@@ -51,13 +49,11 @@ app.post("/api/chat", upload.single("file"), async (req, res, next) => {
     // return res.status(400).json({ error: "Message is required" });
   }
 
-  const parts = [];
-
   if (isAnyFile) {
     // accept png, jpg or jpeg for image || pdf for document || mp3 for audio
     const mimeType = req.file.mimetype;
     if (!mimeType.startsWith("image/") && !mimeType.startsWith("application/pdf") && !mimeType.startsWith("audio/mpeg")) {
-      if (req.file && req.file.path) fs.unlinkSync(req.file.path); // Pastikan file dihapus jika format tidak didukung
+      fs.unlinkSync(req.file.path);
       throw { status: 400, message: "Format file not supported" };
     //   return res.status(400).json({ error: "Format file not supported" });
     }
@@ -70,14 +66,14 @@ app.post("/api/chat", upload.single("file"), async (req, res, next) => {
       userMessage = "Transcribe or analyze the following audio";
     }
 
-    parts.push(fileGeneratePart(req.file.path, req.file.mimetype));
-
+    const file = fileGeneratePart(req.file.path, req.file.mimetype);
     try {
-      if (userMessage) parts.push({ text: userMessage }); // Tambahkan pesan teks jika ada
-      const result = await chat.sendMessage(parts); // Gunakan chat.sendMessage
+      // Tambahkan instruksi gaya bahasa di sini
+      const styledUserMessage = `Berikan jawaban yang ramah dan sedikit imajinatif. ${userMessage}`;
+      const result = await model.generateContent([styledUserMessage, file]);
       const response = result.response;
       res.json({ reply: response.text() });
-    } catch (err) { // Tangani error dari chat.sendMessage
+    } catch (err) {
       console.log(err);
       next(err);
     } finally {
@@ -88,9 +84,10 @@ app.post("/api/chat", upload.single("file"), async (req, res, next) => {
       }
     }
   } else {
-    // Jika tidak ada file, hanya kirim pesan teks
     try {
-      const result = await chat.sendMessage(userMessage); // Gunakan chat.sendMessage
+      // Tambahkan instruksi gaya bahasa di sini
+      const styledUserMessage = `Berikan jawaban yang ramah dan sedikit imajinatif. ${userMessage}`;
+      const result = await model.generateContent(styledUserMessage);
       const response = result.response;
       const text = response.text();
 
@@ -115,7 +112,7 @@ app.use((err, req, res, next) => {
     // Handle other multer errors
     return res.status(400).json({ error: `File upload error: ${err.message}` });
   }
-  console.error("Unhandled error in API route:", err); // Log error yang tidak tertangani
+  console.log(err)
   res.status(code).json({ error: message });
 });
 

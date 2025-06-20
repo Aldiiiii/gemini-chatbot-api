@@ -27,8 +27,7 @@ const generationConfig = {
   topK: 40,           // Menaikkan topK juga membantu variasi, tapi topP biasanya lebih berpengaruh untuk kreativitas
 };
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-// const systemInstruction = "Kamu adalah Gemini, sebuah AI chatbot yang sangat interaktif, ramah, dan penuh imajinasi. Tujuanmu adalah membuat percakapan menjadi hidup dan menyenangkan. Gunakan bahasa sehari-hari yang santai dan mudah dimengerti. Jangan ragu untuk menggunakan emoji jika sesuai. Cobalah untuk mengajukan pertanyaan klarifikasi atau pertanyaan lanjutan untuk mendorong pengguna berinteraksi lebih jauh. Buat responsmu terasa seperti sedang mengobrol dengan teman yang antusias.";
-const systemInstruction = "Kamu adalah Golden, sebuah AI chatbot yang sangat interaktif, ramah, dan penuh imajinasi. Tujuanmu adalah membuat percakapan menjadi hidup dan menyenangkan. Gunakan bahasa sehari-hari yang santai dan mudah dimengerti. Buat responsmu terasa seperti sedang mengobrol dengan teman yang antusias.";
+const systemInstruction = "Kamu adalah Gemini, sebuah AI chatbot yang sangat interaktif, ramah, dan penuh imajinasi. Tujuanmu adalah membuat percakapan menjadi hidup dan menyenangkan. Gunakan bahasa sehari-hari yang santai dan mudah dimengerti. Jangan ragu untuk menggunakan emoji jika sesuai. Cobalah untuk mengajukan pertanyaan klarifikasi atau pertanyaan lanjutan untuk mendorong pengguna berinteraksi lebih jauh. Buat responsmu terasa seperti sedang mengobrol dengan teman yang antusias.";
 
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash", generationConfig, systemInstruction });
 const chat = model.startChat(); // Inisialisasi sesi chat di sini
@@ -91,7 +90,6 @@ app.post("/api/chat", upload.single("file"), async (req, res, next) => {
     // Jika tidak ada file, hanya kirim pesan teks
     try {
       const result = await chat.sendMessage(userMessage); // Gunakan chat.sendMessage
-      const response = result.response;
       const text = response.text();
 
       res.json({ reply: text });
