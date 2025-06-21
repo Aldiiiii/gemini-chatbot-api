@@ -35,7 +35,7 @@ async function sendMessageToServer(message, file) {
 
     // Remove the "thinking" message
     const thinkingMessage = chatBox.lastChild;
-    if (thinkingMessage && thinkingMessage.classList.contains('bot') && thinkingMessage.textContent.includes('thinking...')) {
+    if (thinkingMessage && thinkingMessage.classList.contains('bot') && thinkingMessage.textContent.includes('berpikir...')) {
       chatBox.removeChild(thinkingMessage);
     }
 
