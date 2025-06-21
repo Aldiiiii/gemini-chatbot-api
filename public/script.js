@@ -8,7 +8,7 @@ const chatBox = document.getElementById('chat-box');
 
 async function sendMessageToServer(message, file) {
   // No need to check for message only, as we can send a file alone
-  appendMessage('bot', 'Gemini is thinking...'); // Temporary "thinking" message
+  appendMessage('bot', 'Golden sedang berpikir...'); // Temporary "thinking" message
 
   const formData = new FormData();
   if (message) {
