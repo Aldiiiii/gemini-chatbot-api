@@ -337,6 +337,7 @@ button[type="submit"]:hover {
 
   .container {
     height: 100vh;
+    max-height: none;
     /* Take more height on mobile */
     border-radius: 10px;
     /* Slightly less rounded on mobile */
