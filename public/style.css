@@ -268,21 +268,16 @@ button[type="submit"]:hover {
   }
 
   form {
-    flex-wrap: wrap; /* Allow form elements to wrap */
-    justify-content: center; /* Center form elements */
+    /* By removing flex-wrap, the form items will stay in a single row and resize naturally. */
+    gap: 8px; /* Slightly reduce gap for smaller screens */
   }
 
   input[type="text"] {
-    width: calc(100% - 60px); /* Adjust width for input field */
-    margin-right: 0; /* Remove margin-right */
-    order: 2; /* Change order to place input after buttons */
+    /* No longer need mobile-specific overrides. The default `flex: 1` will handle responsiveness. */
   }
 
   .file-attachment-group {
-    width: 100%; /* Take full width */
-    justify-content: center; /* Center attachment group */
-    margin-bottom: 10px; /* Add space below */
-    order: 1; /* Place attachment group first */
+    /* No longer need mobile-specific overrides. */
   }
 
   .icon-button {
@@ -291,9 +286,8 @@ button[type="submit"]:hover {
   }
 
   button[type="submit"] {
-    flex-grow: 1; /* Allow send button to grow */
-    order: 3; /* Place send button last */
-    margin-top: 10px; /* Add space above send button */
+    /* No longer need mobile-specific overrides. The button will size to its content. */
+    padding: 12px 18px; /* Adjust padding for a better fit on mobile */
   }
 
   .selected-file-name {
