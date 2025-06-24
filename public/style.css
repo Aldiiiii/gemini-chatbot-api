@@ -1,53 +1,82 @@
 /* General body and html for full screen */
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
   padding: 0;
-  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  box-sizing: border-box;
+  /* Include padding and border in the element's total width and height */
 }
 
 body {
-  font-family: 'Poppins', sans-serif; /* Changed font to Poppins */
-  background-color: #F8F8F8; /* Light gray, almost white for a clean base */
-  display: flex; /* Use flexbox for centering */
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  min-height: 100vh; /* Ensure it takes full viewport height */
+  font-family: 'Poppins', sans-serif;
+  /* Changed font to Poppins */
+  background-color: #F8F8F8;
+  /* Light gray, almost white for a clean base */
+  display: flex;
+  /* Use flexbox for centering */
+  justify-content: center;
+  /* Center horizontally */
+  align-items: center;
+  /* Center vertically */
+  min-height: 100vh;
+  /* Ensure it takes full viewport height */
   margin: 0;
-  padding: 20px; /* Add some padding around the container */
+  padding: 20px;
+  /* Add some padding around the container */
 }
 
 .container {
   max-width: 600px;
-  width: 100%; /* Make it responsive */
-  background: #FFFFFF; /* White container */
-  padding: 30px; /* Increased padding for a spacious feel */
-  border-radius: 15px; /* More rounded corners for coziness */
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08); /* Soft, inviting shadow */
+  width: 100%;
+  /* Make it responsive */
+  background: #FFFFFF;
+  /* White container */
+  padding: 0;
+  /* Increased padding for a spacious feel */
+  border-radius: 15px;
+  /* More rounded corners for coziness */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  /* Soft, inviting shadow */
   display: flex;
   flex-direction: column;
-  height: 90vh; /* Adjust height for a better fit on larger screens */
-  max-height: 800px; /* Max height to prevent it from getting too tall */
+  height: 90vh;
+  /* Adjust height for a better fit on larger screens */
+  max-height: 800px;
+  /* Max height to prevent it from getting too tall */
 }
 
 h1 {
   text-align: center;
-  margin-bottom: 25px; /* Increased margin */
-  color: #4A4A4A; /* Soft dark gray heading */
-  font-weight: 600; /* Slightly bolder for heading */
+  margin-bottom: 25px;
+  /* Increased margin */
+  color: #4A4A4A;
+  /* Soft dark gray heading */
+  font-weight: 600;
+  /* Slightly bolder for heading */
 }
 
 .chat-box {
-  flex-grow: 1; /* Allow chat box to take available space */
+  flex-grow: 1;
+  /* Allow chat box to take available space */
   overflow-y: auto;
-  padding: 15px; /* Increased padding */
-  border: none; /* Remove border */
-  border-radius: 10px; /* Subtle rounded corners */
-  background-color: #FDFDFD; /* Very light background for chat area */
-  margin-bottom: 15px; /* Increased margin */
-  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.05); /* Inset shadow for depth */
+  padding: 15px;
+  /* Increased padding */
+  border: none;
+  /* Remove border */
+  border-radius: 10px;
+  /* Subtle rounded corners */
+  background-color: #FDFDFD;
+  /* Very light background for chat area */
+  margin-bottom: 15px;
+  margin-left: 20px;
+  margin-right: 20px;
+  /* Increased margin */
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.05);
+  /* Inset shadow for depth */
   display: flex;
-  flex-direction: column; /* Stack messages vertically */
+  flex-direction: column;
+  /* Stack messages vertically */
 }
 
 /* Scrollbar styling for aesthetic theme */
@@ -61,40 +90,58 @@ h1 {
 }
 
 .chat-box::-webkit-scrollbar-thumb {
-  background-color: #D0D0D0; /* Soft gray thumb */
+  background-color: #D0D0D0;
+  /* Soft gray thumb */
   border-radius: 4px;
 }
 
 .message {
-  margin: 10px 0; /* Increased margin */
-  padding: 12px 18px; /* More padding for message bubbles */
-  border-radius: 22px; /* More rounded messages */
-  max-width: 75%; /* Slightly less wide */
+  margin: 10px 0;
+  /* Increased margin */
+  padding: 12px 18px;
+  /* More padding for message bubbles */
+  border-radius: 22px;
+  /* More rounded messages */
+  max-width: 75%;
+  /* Slightly less wide */
   display: inline-block;
-  word-wrap: break-word; /* Ensure long words break */
-  font-size: 0.95em; /* Slightly smaller font for a refined look */
+  word-wrap: break-word;
+  /* Ensure long words break */
+  font-size: 0.95em;
+  /* Slightly smaller font for a refined look */
   line-height: 1.4;
 }
 
 .message.user {
-  background-color: #DCEEFB; /* Soft light blue */
-  color: #333333; /* Dark text for contrast */
-  align-self: flex-end; /* Align to the right in flex container */
+  background-color: #DCEEFB;
+  /* Soft light blue */
+  color: #333333;
+  /* Dark text for contrast */
+  align-self: flex-end;
+  /* Align to the right in flex container */
   text-align: right;
-  border-radius: 22px 22px 5px 22px; /* Organic shape */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+  border-radius: 22px 22px 5px 22px;
+  /* Organic shape */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  /* Subtle shadow */
 }
 
 .message.bot {
-  background-color: #E6F7D9; /* Soft mint green */
-  color: #333333; /* Dark text for contrast */
-  align-self: flex-start; /* Align to the left in flex container */
+  background-color: #E6F7D9;
+  /* Soft mint green */
+  color: #333333;
+  /* Dark text for contrast */
+  align-self: flex-start;
+  /* Align to the left in flex container */
   text-align: left;
-  border-radius: 22px 22px 22px 5px; /* Organic shape */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+  border-radius: 22px 22px 22px 5px;
+  /* Organic shape */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  /* Subtle shadow */
 }
 
 form {
+  padding: 20px;
   display: flex;
   gap: 10px;
   align-items: center;
@@ -102,24 +149,36 @@ form {
 
 input[type="text"] {
   flex: 1;
-  padding: 12px 18px; /* More padding for input */
-  border-radius: 25px; /* Very rounded input */
-  border: 1px solid #E0E0E0; /* Soft border */
-  background-color: #FFFFFF; /* White background */
-  color: #333333; /* Dark text */
+  padding: 12px 18px;
+  /* More padding for input */
+  border-radius: 25px;
+  /* Very rounded input */
+  border: 1px solid #E0E0E0;
+  /* Soft border */
+  background-color: #FFFFFF;
+  /* White background */
+  color: #333333;
+  /* Dark text */
   font-size: 1em;
-  outline: none; /* Remove default outline */
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+  width: 100%;
+  /* Full width */
+  outline: none;
+  /* Remove default outline */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  /* Subtle shadow */
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 input[type="text"]::placeholder {
-  color: #A0A0A0; /* Soft gray placeholder */
+  color: #A0A0A0;
+  /* Soft gray placeholder */
 }
 
 input[type="text"]:focus {
-  border-color: #B0D0E0; /* Slightly darker border on focus */
-  box-shadow: 0 0 0 3px rgba(176, 208, 224, 0.3); /* Soft glow on focus */
+  border-color: #B0D0E0;
+  /* Slightly darker border on focus */
+  box-shadow: 0 0 0 3px rgba(176, 208, 224, 0.3);
+  /* Soft glow on focus */
 }
 
 /* Visually hide the default file input but keep it accessible */
@@ -138,7 +197,8 @@ input[type="text"]:focus {
 .file-attachment-group {
   display: flex;
   align-items: center;
-  gap: 8px; /* Slightly increased gap */
+  gap: 8px;
+  /* Slightly increased gap */
 }
 
 .file-input-area {
@@ -146,10 +206,14 @@ input[type="text"]:focus {
 }
 
 .icon-button {
-  background: #F0F0F0; /* Light gray button */
-  border: 1px solid #D0D0D0; /* Soft border */
-  border-radius: 50%; /* Make it round */
-  width: 42px; /* Slightly larger touch target */
+  background: #F0F0F0;
+  /* Light gray button */
+  border: 1px solid #D0D0D0;
+  /* Soft border */
+  border-radius: 50%;
+  /* Make it round */
+  width: 42px;
+  /* Slightly larger touch target */
   height: 42px;
   display: inline-flex;
   align-items: center;
@@ -157,16 +221,19 @@ input[type="text"]:focus {
   cursor: pointer;
   padding: 0;
   transition: background-color 0.2s, border-color 0.2s;
-  color: #666666; /* Darker icon color */
+  color: #666666;
+  /* Darker icon color */
 }
 
 .icon-button:hover {
-  background-color: #E0E0E0; /* Slightly darker gray on hover */
+  background-color: #E0E0E0;
+  /* Slightly darker gray on hover */
   border-color: #C0C0C0;
 }
 
 .icon-button svg {
-  width: 22px; /* Adjust icon size */
+  width: 22px;
+  /* Adjust icon size */
   height: 22px;
 }
 
@@ -174,15 +241,21 @@ input[type="text"]:focus {
   position: absolute;
   bottom: 100%;
   left: 0;
-  margin-bottom: 8px; /* Space between button and dropdown */
-  background-color: #FFFFFF; /* White background */
-  border: 1px solid #E0E0E0; /* Soft border */
-  border-radius: 10px; /* Rounded corners */
-  padding: 8px; /* More padding */
+  margin-bottom: 8px;
+  /* Space between button and dropdown */
+  background-color: #FFFFFF;
+  /* White background */
+  border: 1px solid #E0E0E0;
+  /* Soft border */
+  border-radius: 10px;
+  /* Rounded corners */
+  padding: 8px;
+  /* More padding */
   display: none;
   flex-direction: row;
   gap: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* Soft shadow */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  /* Soft shadow */
   z-index: 10;
 }
 
@@ -192,84 +265,108 @@ input[type="text"]:focus {
 
 .file-type-option {
   display: flex;
-  flex-direction: column; /* Icon above text */
+  flex-direction: column;
+  /* Icon above text */
   align-items: center;
-  padding: 10px; /* More padding */
+  padding: 10px;
+  /* More padding */
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.2s;
-  font-size: 0.8em; /* Slightly larger font */
-  min-width: 60px; /* Ensure options have some width */
+  font-size: 0.8em;
+  /* Slightly larger font */
+  min-width: 60px;
+  /* Ensure options have some width */
   text-align: center;
-  color: #555555; /* Darker text */
+  color: #555555;
+  /* Darker text */
 }
 
 .file-type-option:hover {
-  background-color: #F5F5F5; /* Lighter gray on hover */
+  background-color: #F5F5F5;
+  /* Lighter gray on hover */
 }
 
 .file-type-option svg {
-  margin-bottom: 6px; /* More space below icon */
-  color: #666666; /* Icon color */
+  margin-bottom: 6px;
+  /* More space below icon */
+  color: #666666;
+  /* Icon color */
 }
 
 button[type="submit"] {
-  padding: 12px 25px; /* More padding for send button */
+  padding: 12px 25px;
+  /* More padding for send button */
   border: none;
-  background-color: #8B4513; /* SaddleBrown - coffee-like brown */
+  background-color: #8B4513;
+  /* SaddleBrown - coffee-like brown */
   color: white;
-  border-radius: 25px; /* Very rounded button */
+  border-radius: 25px;
+  /* Very rounded button */
   font-size: 1em;
   cursor: pointer;
   transition: background-color 0.3s ease, box-shadow 0.2s;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  /* Subtle shadow */
 }
 
 button[type="submit"]:hover {
-  background-color: #A0522D; /* Sienna - slightly lighter brown on hover */
+  background-color: #A0522D;
+  /* Sienna - slightly lighter brown on hover */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .selected-file-name {
-  font-size: 0.85em; /* Slightly larger font */
-  color: #666666; /* Darker gray */
+  font-size: 0.85em;
+  /* Slightly larger font */
+  color: #666666;
+  /* Darker gray */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 120px; /* Adjust as needed */
+  max-width: 120px;
+  /* Adjust as needed */
 }
 
 /* Responsive adjustments for smaller screens */
 @media (max-width: 768px) {
   body {
-    padding: 15px; /* Reduce body padding on small screens */
+    padding: 0;
+    /* Reduce body padding on small screens */
   }
 
   .container {
-    height: 95vh; /* Take more height on mobile */
-    border-radius: 10px; /* Slightly less rounded on mobile */
-    padding: 20px; /* Reduce container padding */
+    height: 100vh;
+    /* Take more height on mobile */
+    border-radius: 10px;
+    /* Slightly less rounded on mobile */
+    padding: 0;
+    /* Reduce container padding */
   }
 
   h1 {
-    font-size: 1.5em; /* Adjust heading size */
+    font-size: 1.5em;
+    /* Adjust heading size */
     margin-bottom: 20px;
   }
 
   .chat-box {
-    padding: 10px; /* Reduce chat box padding */
+    padding: 10px;
+    /* Reduce chat box padding */
     margin-bottom: 10px;
   }
 
   .message {
-    max-width: 85%; /* Allow messages to be wider on small screens */
+    max-width: 85%;
+    /* Allow messages to be wider on small screens */
     padding: 10px 15px;
     font-size: 0.9em;
   }
 
   form {
     /* By removing flex-wrap, the form items will stay in a single row and resize naturally. */
-    gap: 8px; /* Slightly reduce gap for smaller screens */
+    gap: 8px;
+    /* Slightly reduce gap for smaller screens */
   }
 
   input[type="text"] {
@@ -281,17 +378,19 @@ button[type="submit"]:hover {
   }
 
   .icon-button {
-    width: 40px; /* Adjust size for touch */
+    width: 40px;
+    /* Adjust size for touch */
     height: 40px;
   }
 
   button[type="submit"] {
     /* No longer need mobile-specific overrides. The button will size to its content. */
-    padding: 12px 18px; /* Adjust padding for a better fit on mobile */
+    padding: 12px 18px;
+    /* Adjust padding for a better fit on mobile */
   }
 
   .selected-file-name {
-    max-width: 80px; /* Adjust max-width for file name */
+    max-width: 80px;
+    /* Adjust max-width for file name */
   }
-}
 }
