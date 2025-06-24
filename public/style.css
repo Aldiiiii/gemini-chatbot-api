@@ -336,8 +336,14 @@ button[type="submit"]:hover {
   }
 
   .container {
-    height: 100vh;
+    /* sesuaikan dengan chromebar */
+    width: 100%;
+    /* Full width on small screens */
+    max-width: 100%;
+    /* No max-width to allow full width */
     max-height: none;
+    /* Remove max-height to allow full height */
+    /* Full height on small screens */
     /* Take more height on mobile */
     border-radius: 10px;
     /* Slightly less rounded on mobile */
