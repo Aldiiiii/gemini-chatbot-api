@@ -19,7 +19,7 @@ body {
   /* Center horizontally */
   align-items: center;
   /* Center vertically */
-  min-height: 100vh;
+  min-height: 80vh;
   /* Ensure it takes full viewport height */
   margin: 0;
   padding: 20px;
@@ -40,7 +40,7 @@ body {
   /* Soft, inviting shadow */
   display: flex;
   flex-direction: column;
-  height: 90vh;
+  height: 100vh;
   /* Adjust height for a better fit on larger screens */
   max-height: 800px;
   /* Max height to prevent it from getting too tall */
@@ -332,6 +332,7 @@ button[type="submit"]:hover {
 @media (max-width: 768px) {
   body {
     padding: 0;
+    min-height: none;
     /* Reduce body padding on small screens */
   }
 
