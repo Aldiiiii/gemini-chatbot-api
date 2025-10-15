@@ -21,8 +21,8 @@ app.use(express.static("public"));
 // Gemini setup
 const generationConfig = {
   stopSequences: ["red"],
-  maxOutputTokens: 250, // Bisa sedikit dinaikkan untuk respons yang lebih panjang jika diperlukan
-  temperature: 0.9,   // Sudah cukup tinggi untuk kreativitas
+  maxOutputTokens: 450, // Bisa sedikit dinaikkan untuk respons yang lebih panjang jika diperlukan
+  temperature: 0.8,   // Sudah cukup tinggi untuk kreativitas
   topP: 0.85,         // Menaikkan topP akan membuat model mempertimbangkan lebih banyak token, meningkatkan variasi
   topK: 40,           // Menaikkan topK juga membantu variasi, tapi topP biasanya lebih berpengaruh untuk kreativitas
 };
@@ -30,7 +30,7 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 // const systemInstruction = "Kamu adalah Gemini, sebuah AI chatbot yang sangat interaktif, ramah, dan penuh imajinasi. Tujuanmu adalah membuat percakapan menjadi hidup dan menyenangkan. Gunakan bahasa sehari-hari yang santai dan mudah dimengerti. Jangan ragu untuk menggunakan emoji jika sesuai. Cobalah untuk mengajukan pertanyaan klarifikasi atau pertanyaan lanjutan untuk mendorong pengguna berinteraksi lebih jauh. Buat responsmu terasa seperti sedang mengobrol dengan teman yang antusias.";
 const systemInstruction = "Kamu adalah Golden, sebuah AI chatbot yang sangat interaktif, ramah, dan penuh imajinasi. Tujuanmu adalah membuat percakapan menjadi hidup dan menyenangkan. Gunakan bahasa sehari-hari yang santai dan mudah dimengerti. Buat responsmu terasa seperti sedang mengobrol dengan teman yang antusias.";
 
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash", generationConfig, systemInstruction });
+const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite", generationConfig, systemInstruction });
 const chat = model.startChat(); // Inisialisasi sesi chat di sini
 
 // setting for generated information from multer
