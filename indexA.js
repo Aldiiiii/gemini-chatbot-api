@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import { GoogleGenAI } from '@google/genai';
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import multer from "multer";
 import fs from "fs";
 
@@ -19,32 +19,22 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Gemini setup
-
-const groundingTool = {
-  googleSearch: {},
-};
-
 const generationConfig = {
   stopSequences: ["red"],
   maxOutputTokens: 450, // Bisa sedikit dinaikkan untuk respons yang lebih panjang jika diperlukan
   temperature: 0.8,   // Sudah cukup tinggi untuk kreativitas
   topP: 0.85,         // Menaikkan topP akan membuat model mempertimbangkan lebih banyak token, meningkatkan variasi
-  topK: 40,           // Menaikkan topK juga membantu variasi, tapi topP biasanya lebih berpengaruh untuk kreativitas,
-  tools: [groundingTool],
+  topK: 40,           // Menaikkan topK juga membantu variasi, tapi topP biasanya lebih berpengaruh untuk kreativitas
 };
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+// const systemInstruction = "Kamu adalah Gemini, sebuah AI chatbot yang sangat interaktif, ramah, dan penuh imajinasi. Tujuanmu adalah membuat percakapan menjadi hidup dan menyenangkan. Gunakan bahasa sehari-hari yang santai dan mudah dimengerti. Jangan ragu untuk menggunakan emoji jika sesuai. Cobalah untuk mengajukan pertanyaan klarifikasi atau pertanyaan lanjutan untuk mendorong pengguna berinteraksi lebih jauh. Buat responsmu terasa seperti sedang mengobrol dengan teman yang antusias.";
 const systemInstruction = "Kamu adalah Golden, sebuah AI chatbot yang sangat interaktif, ramah, dan penuh imajinasi. Tujuanmu adalah membuat percakapan menjadi hidup dan menyenangkan. Gunakan bahasa sehari-hari yang santai dan mudah dimengerti. Buat responsmu terasa seperti sedang mengobrol dengan teman yang antusias.";
 
-
-
-const genAI = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-
-const chat = genAI.chats.create({
-  model: "gemini-2.5-flash-lite", // Model diganti sesuai permintaan
-  config: { ...generationConfig, systemInstruction }
-});
+const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite", generationConfig, systemInstruction });
+const chat = model.startChat(); // Inisialisasi sesi chat di sini
 
 // setting for generated information from multer
-const fileToGenerativePart = (filePath, mimeType) => ({
+const fileGeneratePart = (filePath, mimeType) => ({
   inlineData: {
     data: fs.readFileSync(filePath).toString("base64"),
     mimeType: mimeType,
@@ -63,13 +53,15 @@ app.post("/api/chat", upload.single("file"), async (req, res, next) => {
 
   const parts = [];
 
+  console.log(parts)
+
   if (isAnyFile) {
     // accept png, jpg or jpeg for image || pdf for document || mp3 for audio
     const mimeType = req.file.mimetype;
     if (!mimeType.startsWith("image/") && !mimeType.startsWith("application/pdf") && !mimeType.startsWith("audio/mpeg")) {
       if (req.file && req.file.path) fs.unlinkSync(req.file.path); // Pastikan file dihapus jika format tidak didukung
       throw { status: 400, message: "Format file not supported" };
-      //   return res.status(400).json({ error: "Format file not supported" });
+    //   return res.status(400).json({ error: "Format file not supported" });
     }
 
     if (!userMessage && mimeType.startsWith("image/")) {
@@ -80,12 +72,13 @@ app.post("/api/chat", upload.single("file"), async (req, res, next) => {
       userMessage = "Transcribe or analyze the following audio";
     }
 
+    parts.push(fileGeneratePart(req.file.path, req.file.mimetype));
+
     try {
-      const filePart = fileToGenerativePart(req.file.path, req.file.mimetype);
-      parts.push(filePart);
-      if (userMessage) parts.push({ text: userMessage });
-      const result = await chat.sendMessage({ message: parts });
-      res.json({ reply: result.text });
+      if (userMessage) parts.push({ text: userMessage }); // Tambahkan pesan teks jika ada
+      const result = await chat.sendMessage(parts); // Gunakan chat.sendMessage
+      const response = result.response;
+      res.json({ reply: response.text() });
     } catch (err) { // Tangani error dari chat.sendMessage
       console.log(err);
       next(err);
@@ -99,8 +92,10 @@ app.post("/api/chat", upload.single("file"), async (req, res, next) => {
   } else {
     // Jika tidak ada file, hanya kirim pesan teks
     try {
-      const result = await chat.sendMessage({ message: userMessage });
-      const text = result.text;
+      const result = await chat.sendMessage(userMessage); // Gunakan chat.sendMessage
+      const response = result.response;
+      const text = response.text();
+
       res.json({ reply: text });
     } catch (err) {
       console.error(err);

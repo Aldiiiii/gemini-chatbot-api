@@ -103,7 +103,7 @@ form.addEventListener('submit', async function (e) {
   }
   input.placeholder = "Type your message..."; // Reset placeholder
 
-  appendMessage('user', userMessage + (file ? ` [File: ${file.name}]` : ''));
+  appendMessage('user', userMessage, file);
   input.value = '';
   fileInput.value = ''; // Clear the file input
   if (selectedFileNameDisplay) selectedFileNameDisplay.textContent = ''; // Clear displayed name
@@ -111,7 +111,7 @@ form.addEventListener('submit', async function (e) {
 
   await sendMessageToServer(userMessage, file);
 });
-function appendMessage(sender, text) {
+function appendMessage(sender, text, file) {
   const msg = document.createElement('div');
   msg.classList.add('message', sender);
 
@@ -151,8 +151,35 @@ function appendMessage(sender, text) {
     });
     msg.innerHTML = htmlContent;
   } else {
-    // For user messages, display as plain text
-    msg.textContent = text;
+    // For user messages, handle text and file preview
+    if (text) {
+        const textNode = document.createElement('div');
+        textNode.textContent = text;
+        msg.appendChild(textNode);
+    }
+
+    if (file) {
+        if (file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.alt = file.name;
+                img.style.maxWidth = '200px';
+                img.style.maxHeight = '200px';
+                img.style.borderRadius = '5px';
+                img.style.marginTop = text ? '10px' : '0';
+                msg.appendChild(img);
+                chatBox.scrollTop = chatBox.scrollHeight; // Adjust scroll after image loads
+            }
+            reader.readAsDataURL(file);
+        } else {
+            const fileInfo = document.createElement('div');
+            fileInfo.textContent = `[File: ${file.name}]`;
+            fileInfo.style.marginTop = text ? '5px' : '0';
+            msg.appendChild(fileInfo);
+        }
+    }
   }
 
   chatBox.appendChild(msg);
