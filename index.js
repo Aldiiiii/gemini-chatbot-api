@@ -26,7 +26,7 @@ const groundingTool = {
 
 const generationConfig = {
   stopSequences: ["red"],
-  maxOutputTokens: 450, // Bisa sedikit dinaikkan untuk respons yang lebih panjang jika diperlukan
+  maxOutputTokens: 2000, // Bisa sedikit dinaikkan untuk respons yang lebih panjang jika diperlukan
   temperature: 0.8,   // Sudah cukup tinggi untuk kreativitas
   topP: 0.85,         // Menaikkan topP akan membuat model mempertimbangkan lebih banyak token, meningkatkan variasi
   topK: 40,           // Menaikkan topK juga membantu variasi, tapi topP biasanya lebih berpengaruh untuk kreativitas,
